@@ -1,0 +1,65 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "version" : "2022-01-25T15:05:14Z",
+    "title" : "AmazingDiscountsAPI"
+  },
+  "host" : "fagxmojp7g.execute-api.us-east-1.amazonaws.com",
+  "basePath" : "/testenv",
+  "schemes" : [ "https" ],
+  "paths" : {
+    "/discount" : {
+      "get" : {
+        "description" : "This Method allow user to get a discount by providing userid,email and brandid as url parameters",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "userid",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "brandid",
+          "in" : "header",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        },
+        "security" : [ {
+          "api_key" : [ ]
+        } ]
+      },
+      "post" : {
+        "description" : "This method allows a brand to create discount codes by providing brandid and N number of discounts",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "schema" : {
+              "$ref" : "#/definitions/Empty"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "api_key" : {
+      "type" : "apiKey",
+      "name" : "x-api-key",
+      "in" : "header"
+    }
+  },
+  "definitions" : {
+    "Empty" : {
+      "type" : "object",
+      "title" : "Empty Schema"
+    }
+  }
+}
