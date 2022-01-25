@@ -36,7 +36,7 @@ def lambda_handler(event, context):
                 #TODO Parse the records jason to get the exact tag of discount code
                 discountcode=get_discount(userid,brandid)
                 response['statusCode'] = '200'
-                response['body'] = str(discountcode['records'])
+                response['body'] = "{'Discount_Code':'"+str(discountcode['records'][0][0]['stringValue']+"'}")
                 
                 #Send brand and fethed user detail to SQS
                 sendstatus = senduser_SQS(brandid,userid,useremail)
@@ -76,7 +76,7 @@ def lambda_handler(event, context):
 def get_discount(userid,brandid, dynamodb=None):
     
     
-    get_discount_sql="select code as id from Discount_Codes where brand_id='"+brandid+"' and fetcheduser_id IS NULL LIMIT 1"
+    get_discount_sql="select code as id from Discount_Codes where brand_id='"+brandid+"' and fetcheduser_id IS NULL ORDER BY RAND() LIMIT 1"
     response=execute_sql(get_discount_sql)
     #To DO
     #Update the table with fetched userID so that same code is not picked again
